@@ -84,7 +84,7 @@ const Header = () => {
             </a>
 
             {/* Desktop Navigation - Next to Logo */}
-            <ul className="hidden lg:flex items-center gap-8">
+            <ul className="hidden md:flex items-center gap-4 lg:gap-8">
               {/* Home */}
               <li>
                 <button
@@ -191,7 +191,7 @@ const Header = () => {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden text-white p-2 hover:text-gold transition-colors"
+              className="md:hidden text-white p-2 hover:text-gold transition-colors"
               aria-label="Toggle menu"
             >
               {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
@@ -201,7 +201,7 @@ const Header = () => {
 
         {/* Mobile Menu */}
         <div
-          className={`lg:hidden absolute top-full left-0 right-0 bg-[#1f5c40]/98 backdrop-blur-md transition-all duration-300 overflow-hidden shadow-elevated ${
+          className={`md:hidden absolute top-full left-0 right-0 bg-[#1f5c40]/98 backdrop-blur-md transition-all duration-300 overflow-hidden shadow-elevated ${
             isMobileMenuOpen ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0"
           }`}
         >
