@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
-import papparichLogo from "@/assets/papparich-logo-white.png";
+import papparichLogo from "@/assets/papparich-logo-green.jpg";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -50,7 +50,7 @@ const Header = () => {
           <img
             src={papparichLogo}
             alt="PappaRich Malaysian Cuisine"
-            className="h-14 md:h-16 w-auto"
+            className="h-14 md:h-16 w-auto brightness-0 invert"
           />
         </a>
 
