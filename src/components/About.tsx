@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import nasiLemak from "@/assets/nasi-lemak.jpg";
+import restaurantStaff from "@/assets/restaurant-staff.jpg";
 
 const About = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -45,8 +45,8 @@ const About = () => {
               <div className="absolute -inset-4 bg-gradient-gold rounded-2xl opacity-20 blur-xl" />
               <div className="relative rounded-2xl overflow-hidden shadow-elevated img-zoom">
                 <img
-                  src={nasiLemak}
-                  alt="Traditional Malaysian Nasi Lemak on banana leaf"
+                  src={restaurantStaff}
+                  alt="PappaRich friendly staff at our restaurant"
                   className="w-full h-[400px] md:h-[500px] object-cover"
                 />
               </div>

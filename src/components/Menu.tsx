@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import nasiLemak from "@/assets/nasi-lemak.jpg";
-import curryLaksa from "@/assets/curry-laksa.jpg";
-import rotiCanai from "@/assets/roti-canai.jpg";
-import charKoayTeow from "@/assets/char-koay-teow.jpg";
-import tehTarik from "@/assets/teh-tarik.jpg";
-import satay from "@/assets/satay.jpg";
+import nasiKunyit from "@/assets/nasi-kunyit.jpg";
+import aisKacang from "@/assets/ais-kacang.jpg";
+import nasiGorengAyam from "@/assets/nasi-goreng-ayam.jpg";
+import meeGoreng from "@/assets/mee-goreng.jpg";
+import deliveryUbereats from "@/assets/delivery-ubereats.jpg";
+import foodSpread from "@/assets/food-spread.jpg";
 
 interface DishCard {
   name: string;
@@ -15,46 +15,46 @@ interface DishCard {
 
 const dishes: DishCard[] = [
   {
-    name: "Nasi Lemak",
+    name: "Nasi Kunyit",
     description:
-      "Fragrant coconut rice served with sambal, anchovies, peanuts, egg, and crispy fried chicken",
-    image: nasiLemak,
+      "Fragrant turmeric yellow rice with sambal, anchovies, vegetables, and traditional Malaysian sides",
+    image: nasiKunyit,
     category: "Signature",
   },
   {
-    name: "Curry Laksa",
+    name: "Nasi Goreng Ayam",
     description:
-      "Rich and creamy coconut curry noodle soup with prawns, tofu puffs, and fresh herbs",
-    image: curryLaksa,
+      "Malaysian fried rice with crispy fried chicken, sunny-side egg, papadum, and sambal",
+    image: nasiGorengAyam,
+    category: "Rice",
+  },
+  {
+    name: "Mee Goreng Mamak",
+    description:
+      "Wok-fried yellow noodles with prawns, chilli, onions, and traditional spices",
+    image: meeGoreng,
     category: "Noodles",
   },
   {
-    name: "Roti Canai",
+    name: "Ais Kacang (ABC)",
     description:
-      "Flaky, crispy flatbread served with aromatic curry dipping sauce",
-    image: rotiCanai,
-    category: "Signature",
+      "Shaved ice dessert with red beans, grass jelly, sweet corn, peanuts, and rose syrup",
+    image: aisKacang,
+    category: "Desserts",
   },
   {
-    name: "Char Koay Teow",
+    name: "Nasi Lemak Set",
     description:
-      "Smoky wok-fried flat noodles with prawns, Chinese sausage, bean sprouts and egg",
-    image: charKoayTeow,
-    category: "Noodles",
+      "Classic coconut rice with rendang chicken, egg, anchovies, peanuts, and sambal - delivered fresh",
+    image: deliveryUbereats,
+    category: "Delivery",
   },
   {
-    name: "Satay",
+    name: "PappaRich Feast",
     description:
-      "Grilled meat skewers with rich peanut sauce, rice cakes, and fresh vegetables",
-    image: satay,
-    category: "Grill",
-  },
-  {
-    name: "Teh Tarik",
-    description:
-      "Iconic pulled milk tea with a creamy, frothy texture - Malaysia's national drink",
-    image: tehTarik,
-    category: "Beverages",
+      "A spread of our best dishes - Curry Laksa, Nasi Lemak, Roti Canai, Hainanese Chicken, and more",
+    image: foodSpread,
+    category: "Sharing",
   },
 ];
 
