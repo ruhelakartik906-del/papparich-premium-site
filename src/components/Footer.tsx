@@ -52,7 +52,7 @@ const Footer = () => {
               <img
                 src={papparichLogo}
                 alt="PappaRich Malaysian Cuisine"
-                className="h-12 w-auto"
+                className="h-16 w-auto"
               />
             </a>
             <p className="text-cream/70 leading-relaxed mb-6 max-w-sm">
