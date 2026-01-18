@@ -1,4 +1,4 @@
-import heroFood from "@/assets/hero-food.jpg";
+import foodSpread from "@/assets/food-spread.jpg";
 
 const Hero = () => {
   const scrollToSection = (href: string) => {
@@ -101,8 +101,8 @@ const Hero = () => {
           >
             <div className="relative rounded-2xl overflow-hidden shadow-elevated">
               <img
-                src={heroFood}
-                alt="Delicious Malaysian Nasi Lemak"
+                src={foodSpread}
+                alt="PappaRich Malaysian Food Spread - Curry Laksa, Nasi Lemak, Roti Canai and more"
                 className="w-full h-auto object-cover"
               />
               {/* Overlay gradient */}
