@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
+import papparichLogo from "@/assets/papparich-logo.jpg";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -44,11 +45,13 @@ const Header = () => {
             e.preventDefault();
             window.scrollTo({ top: 0, behavior: "smooth" });
           }}
-          className="flex items-center gap-2"
+          className="flex items-center"
         >
-          <span className="text-2xl md:text-3xl font-heading font-bold text-cream">
-            Pappa<span className="text-gold">Rich</span>
-          </span>
+          <img
+            src={papparichLogo}
+            alt="PappaRich Malaysian Cuisine"
+            className="h-10 md:h-12 w-auto brightness-0 invert"
+          />
         </a>
 
         {/* Desktop Navigation */}
