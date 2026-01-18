@@ -1,6 +1,5 @@
 import { Facebook, Instagram, Youtube, Mail, Phone, MapPin } from "lucide-react";
-import papparichLogo from "@/assets/papparich-logo-white.png";
-
+import papparichLogo from "@/assets/papparich-logo-green.jpg";
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 

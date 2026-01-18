@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { MapPin, Phone, Mail } from "lucide-react";
+import { MapPin, Phone, Mail, Star } from "lucide-react";
 
 const Contact = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -41,6 +41,12 @@ const Contact = () => {
         "46-50 Hibberson Street",
         "Gungahlin ACT 2912, Australia"
       ],
+    },
+    {
+      icon: <Star className="w-6 h-6" />,
+      title: "Leave a Review",
+      lines: ["Share your experience with us!"],
+      isReview: true,
     },
   ];
 
@@ -121,8 +127,12 @@ const Contact = () => {
                   style={{ transitionDelay: `${(index + 4) * 100}ms` }}
                 >
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 rounded-full bg-olive-dark text-gold flex items-center justify-center
-                      group-hover:bg-accent group-hover:text-olive-dark transition-colors duration-300">
+                    <div className={`w-12 h-12 rounded-full flex items-center justify-center
+                      transition-colors duration-300 ${
+                        info.isReview 
+                          ? "bg-gold text-olive-dark group-hover:bg-olive-dark group-hover:text-gold" 
+                          : "bg-olive-dark text-gold group-hover:bg-accent group-hover:text-olive-dark"
+                      }`}>
                       {info.icon}
                     </div>
                     <h3 className="font-heading font-bold text-lg text-foreground">
@@ -134,6 +144,17 @@ const Contact = () => {
                       {line}
                     </p>
                   ))}
+                  {info.isReview && (
+                    <a
+                      href="https://g.page/r/papparich-gungahlin/review"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 mt-3 text-sm font-semibold text-gold hover:text-gold-dark transition-colors"
+                    >
+                      <Star className="w-4 h-4 fill-current" />
+                      Write a Review
+                    </a>
+                  )}
                 </div>
               ))}
             </div>
