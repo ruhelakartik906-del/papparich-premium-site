@@ -1,5 +1,5 @@
 import { Facebook, Instagram, Twitter, Youtube } from "lucide-react";
-import papparichLogo from "@/assets/papparich-logo-green.jpg";
+import papparichLogo from "@/assets/papparich-logo-white.png";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -52,7 +52,7 @@ const Footer = () => {
               <img
                 src={papparichLogo}
                 alt="PappaRich Malaysian Cuisine"
-                className="h-16 w-auto brightness-0 invert"
+                className="h-16 w-auto"
               />
             </a>
             <p className="text-cream/70 leading-relaxed mb-6 max-w-sm">

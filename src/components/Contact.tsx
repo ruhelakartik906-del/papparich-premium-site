@@ -36,7 +36,7 @@ const Contact = () => {
     {
       icon: <Mail className="w-6 h-6" />,
       title: "Email Us",
-      lines: ["info@papparich.com.au", "catering@papparich.com.au"],
+      lines: ["papparichgungahlin@gmail.com"],
     },
     {
       icon: <Clock className="w-6 h-6" />,
