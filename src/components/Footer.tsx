@@ -1,4 +1,5 @@
 import { Facebook, Instagram, Twitter, Youtube } from "lucide-react";
+import papparichLogo from "@/assets/papparich-logo.jpg";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -48,9 +49,11 @@ const Footer = () => {
           {/* Brand Column */}
           <div className="lg:col-span-2">
             <a href="#" className="inline-block mb-6">
-              <span className="text-3xl font-heading font-bold">
-                Pappa<span className="text-gold">Rich</span>
-              </span>
+              <img
+                src={papparichLogo}
+                alt="PappaRich Malaysian Cuisine"
+                className="h-12 w-auto brightness-0 invert"
+              />
             </a>
             <p className="text-cream/70 leading-relaxed mb-6 max-w-sm">
               Bringing authentic Malaysian kopitiam culture to Australia since
