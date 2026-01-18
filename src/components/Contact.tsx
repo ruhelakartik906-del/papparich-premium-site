@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import { MapPin, Phone, Mail } from "lucide-react";
 
 const Contact = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -24,30 +24,22 @@ const Contact = () => {
 
   const contactInfo = [
     {
+      icon: <Mail className="w-6 h-6" />,
+      title: "Email",
+      lines: ["papparichgungahlin@gmail.com"],
+    },
+    {
+      icon: <Phone className="w-6 h-6" />,
+      title: "Phone",
+      lines: ["(02) 6241 2388"],
+    },
+    {
       icon: <MapPin className="w-6 h-6" />,
-      title: "Visit Us",
+      title: "Address",
       lines: [
         "Shop 33, Gungahlin Village",
         "46-50 Hibberson Street",
         "Gungahlin ACT 2912, Australia"
-      ],
-    },
-    {
-      icon: <Phone className="w-6 h-6" />,
-      title: "Call Us",
-      lines: ["(02) 6241 2388", "Mon-Sun: 10am - 10pm"],
-    },
-    {
-      icon: <Mail className="w-6 h-6" />,
-      title: "Email Us",
-      lines: ["papparichgungahlin@gmail.com"],
-    },
-    {
-      icon: <Clock className="w-6 h-6" />,
-      title: "Opening Hours",
-      lines: [
-        "Monday - Thursday: 10am - 9pm",
-        "Friday - Sunday: 10am - 10pm",
       ],
     },
   ];
