@@ -83,9 +83,13 @@ const Menu = () => {
     <section
       id="menu"
       ref={sectionRef}
-      className="section-padding bg-background"
+      className="section-padding bg-background relative overflow-hidden"
     >
-      <div className="container-custom">
+      {/* Decorative Background Elements */}
+      <div className="absolute top-20 left-0 w-72 h-72 bg-accent/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-20 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+      
+      <div className="container-custom relative z-10">
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
           <span
@@ -104,7 +108,7 @@ const Menu = () => {
           </h2>
           <div
             className={`decorative-line mx-auto mb-6 transition-all duration-700 delay-200 ${
-              isVisible ? "opacity-100" : "opacity-0"
+              isVisible ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0"
             }`}
           />
           <p
@@ -122,7 +126,9 @@ const Menu = () => {
           {dishes.map((dish, index) => (
             <div
               key={dish.name}
-              className={`menu-card group transition-all duration-700 ${
+              className={`group relative bg-card rounded-2xl overflow-hidden transition-all duration-700 
+                border border-border hover:border-accent hover:shadow-elevated
+                transform hover:-translate-y-3 hover:scale-[1.02] ${
                 isVisible
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-10"
@@ -134,42 +140,61 @@ const Menu = () => {
                 <img
                   src={dish.image}
                   alt={dish.name}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110"
                 />
+                {/* Shimmer Effect on Hover */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent 
+                  translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000 ease-in-out" />
                 {/* Category Badge */}
-                <div className="absolute top-4 left-4 bg-olive-dark/90 backdrop-blur-sm text-cream px-3 py-1 rounded-full text-xs font-medium">
+                <div className="absolute top-4 left-4 bg-olive-dark/90 backdrop-blur-sm text-cream px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider
+                  transform transition-all duration-500 group-hover:bg-accent group-hover:text-olive-dark group-hover:scale-105">
                   {dish.category}
                 </div>
-                {/* Hover Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-olive-dark/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                {/* Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-olive-dark/90 via-olive-dark/20 to-transparent 
+                  opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                {/* View Button on Hover */}
+                <div className="absolute bottom-4 left-0 right-0 flex justify-center 
+                  opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
+                  <span className="bg-accent text-accent-foreground px-6 py-2 rounded-full text-sm font-semibold 
+                    shadow-gold transform hover:scale-105 transition-transform">
+                    View Dish
+                  </span>
+                </div>
               </div>
 
               {/* Content */}
-              <div className="p-6">
-                <h3 className="text-xl font-heading font-bold text-foreground mb-2 group-hover:text-gold transition-colors">
+              <div className="p-6 bg-gradient-to-b from-card to-card/80">
+                <h3 className="text-xl font-heading font-bold text-foreground mb-2 
+                  group-hover:text-gold transition-colors duration-300">
                   {dish.name}
                 </h3>
                 <p className="text-muted-foreground text-sm leading-relaxed">
                   {dish.description}
                 </p>
               </div>
+              
+              {/* Bottom Accent Line */}
+              <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-accent via-gold-light to-accent 
+                scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center" />
             </div>
           ))}
         </div>
 
         {/* View Full Menu Button */}
         <div
-          className={`text-center mt-12 transition-all duration-700 delay-700 ${
+          className={`text-center mt-16 transition-all duration-700 delay-700 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           }`}
         >
           <button
             onClick={() => document.querySelector("#order")?.scrollIntoView({ behavior: "smooth" })}
-            className="inline-flex items-center gap-2 btn-primary"
+            className="group inline-flex items-center gap-3 btn-primary text-lg px-10 py-4 
+              relative overflow-hidden"
           >
-            View Full Menu & Order
+            <span className="relative z-10">View Full Menu & Order</span>
             <svg
-              className="w-5 h-5"
+              className="w-5 h-5 relative z-10 transition-transform duration-300 group-hover:translate-x-1"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -181,6 +206,9 @@ const Menu = () => {
                 d="M17 8l4 4m0 0l-4 4m4-4H3"
               />
             </svg>
+            {/* Button Shimmer Effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent 
+              translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-700" />
           </button>
         </div>
       </div>

@@ -132,31 +132,6 @@ const Delivery = () => {
               ))}
             </div>
           </div>
-
-          {/* Promo Banner */}
-          <div
-            className={`mt-16 bg-gradient-gold rounded-2xl p-8 transition-all duration-700 delay-600 ${
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            }`}
-          >
-            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-              <div className="text-left">
-                <p className="text-olive-dark font-heading font-bold text-2xl md:text-3xl">
-                  Free Delivery on First Order!
-                </p>
-                <p className="text-olive-dark/80 mt-1">
-                  Use code <span className="font-bold">PAPPARICH</span> at
-                  checkout
-                </p>
-              </div>
-              <a
-                href="#"
-                className="bg-olive-dark text-cream font-semibold px-8 py-4 rounded-lg hover:bg-olive-light transition-colors whitespace-nowrap"
-              >
-                Claim Offer
-              </a>
-            </div>
-          </div>
         </div>
       </div>
     </section>
