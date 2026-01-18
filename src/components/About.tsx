@@ -30,6 +30,18 @@ const About = () => {
     >
       {/* Decorative Background Element */}
       <div className="absolute top-0 right-0 w-1/2 h-full bg-secondary/50 -skew-x-12 translate-x-1/4" />
+      
+      {/* Floating Stickers */}
+      <div className="absolute top-16 right-20 hidden lg:block animate-pulse">
+        <div className="bg-gold text-olive-dark px-4 py-2 rounded-full font-bold text-sm shadow-xl transform rotate-12">
+          🏆 Award Winning
+        </div>
+      </div>
+      <div className="absolute bottom-20 left-10 hidden lg:block animate-bounce" style={{ animationDelay: "0.3s" }}>
+        <div className="bg-[#1f5c40] text-white px-4 py-2 rounded-full font-bold text-sm shadow-xl transform -rotate-6 border-2 border-gold">
+          ❤️ Family Recipe
+        </div>
+      </div>
 
       <div className="container-custom relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">

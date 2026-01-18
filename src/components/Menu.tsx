@@ -89,6 +89,23 @@ const Menu = () => {
       <div className="absolute top-20 left-0 w-72 h-72 bg-accent/5 rounded-full blur-3xl" />
       <div className="absolute bottom-20 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
       
+      {/* Floating Stickers */}
+      <div className="absolute top-32 right-10 hidden lg:block animate-bounce" style={{ animationDelay: "0.2s" }}>
+        <div className="bg-gold text-olive-dark px-4 py-2 rounded-full font-bold text-sm shadow-xl transform rotate-12">
+          👨‍🍳 Chef's Special
+        </div>
+      </div>
+      <div className="absolute top-60 left-10 hidden lg:block animate-pulse">
+        <div className="bg-[#1f5c40] text-white px-4 py-2 rounded-full font-bold text-sm shadow-xl transform -rotate-6 border-2 border-gold">
+          🥢 Fresh Daily
+        </div>
+      </div>
+      <div className="absolute bottom-40 right-16 hidden lg:block animate-bounce" style={{ animationDelay: "0.4s" }}>
+        <div className="bg-red-500 text-white px-3 py-1.5 rounded-full font-bold text-xs shadow-xl transform -rotate-12">
+          🔥 Popular
+        </div>
+      </div>
+      
       <div className="container-custom relative z-10">
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">

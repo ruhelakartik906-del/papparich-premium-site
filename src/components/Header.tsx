@@ -300,8 +300,33 @@ const Header = () => {
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#1f5c40]/40 via-transparent to-[#1f5c40]/60"></div>
         
+        {/* Floating Stickers/Decorations */}
+        <div className="absolute top-8 left-8 md:left-16 animate-bounce">
+          <div className="bg-gold text-olive-dark px-4 py-2 rounded-full font-bold text-sm shadow-xl transform -rotate-12">
+            🔥 Hot & Fresh!
+          </div>
+        </div>
+        <div className="absolute top-20 right-8 md:right-20 animate-pulse">
+          <div className="bg-white text-[#1f5c40] px-4 py-2 rounded-full font-bold text-sm shadow-xl transform rotate-12">
+            ⭐ 4.8 Rating
+          </div>
+        </div>
+        <div className="absolute bottom-32 left-8 md:left-20 hidden md:block animate-bounce" style={{ animationDelay: "0.5s" }}>
+          <div className="bg-red-500 text-white px-4 py-2 rounded-full font-bold text-sm shadow-xl transform rotate-6">
+            🌶️ Spicy Favorites
+          </div>
+        </div>
+        <div className="absolute bottom-40 right-8 md:right-16 hidden md:block animate-pulse" style={{ animationDelay: "0.3s" }}>
+          <div className="bg-[#1f5c40] text-white px-4 py-2 rounded-full font-bold text-sm shadow-xl border-2 border-gold transform -rotate-6">
+            🍜 100% Halal
+          </div>
+        </div>
+        
         {/* Banner Content */}
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
+          <div className="bg-gold/90 text-olive-dark px-6 py-2 rounded-full font-semibold text-sm mb-4 animate-pulse shadow-xl">
+            ✨ Authentic Malaysian Taste ✨
+          </div>
           <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white drop-shadow-2xl mb-4">
             Authentic Malaysian Cuisine
           </h1>
