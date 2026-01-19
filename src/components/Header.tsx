@@ -1,13 +1,11 @@
-import { useState, useEffect, useRef } from "react";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Menu, X } from "lucide-react";
 import papparichLogo from "@/assets/papparich-logo-green.jpg";
 import headerBanner from "@/assets/header-banner.jpg";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,41 +15,12 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const menuCategories = [
-    "Bread",
-    "Dessert", 
-    "Dimsum",
-    "Drinks",
-    "Noodles",
-    "Rice",
-    "Western"
-  ];
-
-  const locationItems = [
-    { label: "Main Outlet", href: "#contact" },
-    { label: "Other Outlets", href: "#other-outlets" }
-  ];
-
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
     setIsMobileMenuOpen(false);
-    setOpenDropdown(null);
-  };
-
-  const handleDropdownEnter = (menu: string) => {
-    if (dropdownTimeoutRef.current) {
-      clearTimeout(dropdownTimeoutRef.current);
-    }
-    setOpenDropdown(menu);
-  };
-
-  const handleDropdownLeave = () => {
-    dropdownTimeoutRef.current = setTimeout(() => {
-      setOpenDropdown(null);
-    }, 150);
   };
 
   return (
@@ -107,64 +76,26 @@ const Header = () => {
                 </button>
               </li>
 
-              {/* Our Location Dropdown */}
-              <li 
-                className="relative"
-                onMouseEnter={() => handleDropdownEnter("location")}
-                onMouseLeave={handleDropdownLeave}
-              >
+              {/* Our Location - Simple Link */}
+              <li>
                 <button
-                  className="flex items-center gap-1 text-white hover:text-gold font-medium text-sm tracking-wide transition-all duration-300 relative group"
+                  onClick={() => scrollToSection("#contact")}
+                  className="text-white hover:text-gold font-medium text-sm tracking-wide transition-all duration-300 relative group"
                 >
                   Our Location
-                  <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${openDropdown === "location" ? "rotate-180" : ""}`} />
                   <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gold group-hover:w-full transition-all duration-300"></span>
                 </button>
-                <div
-                  className={`absolute top-full left-0 mt-2 bg-white rounded-lg shadow-elevated border border-border overflow-hidden transition-all duration-300 min-w-[160px] ${
-                    openDropdown === "location" ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-2"
-                  }`}
-                >
-                  {locationItems.map((item) => (
-                    <button
-                      key={item.label}
-                      onClick={() => scrollToSection(item.href)}
-                      className="block w-full text-left px-4 py-3 text-olive-dark hover:bg-[#1f5c40] hover:text-white text-sm transition-colors duration-300"
-                    >
-                      {item.label}
-                    </button>
-                  ))}
-                </div>
               </li>
 
-              {/* Our Menu Dropdown */}
-              <li 
-                className="relative"
-                onMouseEnter={() => handleDropdownEnter("menu")}
-                onMouseLeave={handleDropdownLeave}
-              >
+              {/* Our Menu - Simple Link */}
+              <li>
                 <button
-                  className="flex items-center gap-1 text-white hover:text-gold font-medium text-sm tracking-wide transition-all duration-300 relative group"
+                  onClick={() => scrollToSection("#menu")}
+                  className="text-white hover:text-gold font-medium text-sm tracking-wide transition-all duration-300 relative group"
                 >
                   Our Menu
-                  <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${openDropdown === "menu" ? "rotate-180" : ""}`} />
                   <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gold group-hover:w-full transition-all duration-300"></span>
                 </button>
-                <div
-                  className={`absolute top-full left-0 mt-2 bg-white rounded-lg shadow-elevated border border-border overflow-hidden transition-all duration-300 min-w-[140px] ${
-                    openDropdown === "menu" ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-2"
-                  }`}
-                >
-                  {menuCategories.map((category) => (
-                    <button
-                      key={category}
-                      onClick={() => scrollToSection("#menu")}
-                      className="block w-full text-left px-4 py-3 text-olive-dark hover:bg-[#1f5c40] hover:text-white text-sm transition-colors duration-300"
-                    >
-                      {category}
-                    </button>
-                  ))}
-                </div>
               </li>
 
               {/* Contact Us */}
@@ -226,48 +157,24 @@ const Header = () => {
               </button>
             </li>
             
-            {/* Mobile Location Submenu */}
+            {/* Mobile Location - Simple Link */}
             <li>
               <button
-                onClick={() => setOpenDropdown(openDropdown === "mobile-location" ? null : "mobile-location")}
-                className="flex items-center justify-between w-full text-white hover:text-gold transition-colors font-medium text-base py-2"
+                onClick={() => scrollToSection("#contact")}
+                className="text-white hover:text-gold transition-colors font-medium text-base w-full text-left py-2"
               >
                 Our Location
-                <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${openDropdown === "mobile-location" ? "rotate-180" : ""}`} />
               </button>
-              <div className={`overflow-hidden transition-all duration-300 ${openDropdown === "mobile-location" ? "max-h-40" : "max-h-0"}`}>
-                {locationItems.map((item) => (
-                  <button
-                    key={item.label}
-                    onClick={() => scrollToSection(item.href)}
-                    className="block w-full text-left pl-4 py-2 text-white/80 hover:text-gold text-sm"
-                  >
-                    {item.label}
-                  </button>
-                ))}
-              </div>
             </li>
 
-            {/* Mobile Menu Submenu */}
+            {/* Mobile Menu - Simple Link */}
             <li>
               <button
-                onClick={() => setOpenDropdown(openDropdown === "mobile-menu" ? null : "mobile-menu")}
-                className="flex items-center justify-between w-full text-white hover:text-gold transition-colors font-medium text-base py-2"
+                onClick={() => scrollToSection("#menu")}
+                className="text-white hover:text-gold transition-colors font-medium text-base w-full text-left py-2"
               >
                 Our Menu
-                <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${openDropdown === "mobile-menu" ? "rotate-180" : ""}`} />
               </button>
-              <div className={`overflow-hidden transition-all duration-300 ${openDropdown === "mobile-menu" ? "max-h-80" : "max-h-0"}`}>
-                {menuCategories.map((category) => (
-                  <button
-                    key={category}
-                    onClick={() => scrollToSection("#menu")}
-                    className="block w-full text-left pl-4 py-2 text-white/80 hover:text-gold text-sm"
-                  >
-                    {category}
-                  </button>
-                ))}
-              </div>
             </li>
 
             <li>
