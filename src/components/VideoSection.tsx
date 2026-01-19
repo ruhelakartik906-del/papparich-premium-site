@@ -25,90 +25,165 @@ const VideoSection = () => {
   };
 
   return (
-    <section className="relative py-10 md:py-14 bg-gradient-to-b from-cream via-white to-cream overflow-hidden">
+    <section className="relative py-12 md:py-16 bg-gradient-to-b from-cream via-white to-cream overflow-hidden">
       <div className="container-custom relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-6 md:mb-8">
-          <h2 className="text-xl md:text-2xl lg:text-3xl font-heading font-bold text-[#1f5c40] mb-2">
+        <div className="text-center mb-8 md:mb-10">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-[#3d9970] mb-3">
             Experience <span className="text-gold">PappaRich</span>
           </h2>
-          <p className="text-xs md:text-sm text-olive-dark/70 max-w-md mx-auto px-4">
-            Authentic Malaysian cuisine crafted with passion
+          <p className="text-sm md:text-base text-olive-dark/70 max-w-lg mx-auto px-4">
+            Watch our culinary journey — fresh ingredients, authentic recipes
           </p>
         </div>
 
-        {/* Video Grid - Multiple Videos */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 max-w-5xl mx-auto px-2">
-          {/* Main Video */}
-          <div className="md:col-span-2 lg:col-span-2">
-            <div className="relative rounded-xl overflow-hidden shadow-lg group">
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-[#1f5c40] via-gold to-[#1f5c40] rounded-xl opacity-50 group-hover:opacity-70 transition-opacity duration-500" />
-              <div className="relative rounded-xl overflow-hidden bg-black">
+        {/* Video Gallery Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4 max-w-6xl mx-auto px-2">
+          {/* Main Featured Video - Larger */}
+          <div className="col-span-2 row-span-2">
+            <div className="relative rounded-2xl overflow-hidden shadow-xl group h-full">
+              <div className="absolute -inset-1 bg-gradient-to-r from-[#3d9970] via-gold to-[#3d9970] rounded-2xl opacity-60 group-hover:opacity-80 transition-opacity duration-500 blur-sm" />
+              <div className="relative rounded-2xl overflow-hidden bg-black h-full min-h-[280px] md:min-h-[360px]">
                 <video
                   ref={videoRef}
                   autoPlay
                   loop
                   playsInline
-                  className="w-full h-auto aspect-video object-cover"
+                  className="w-full h-full object-cover"
                 >
                   <source src="/videos/restaurant-promo.mp4" type="video/mp4" />
                 </video>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
                 <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
                   <button
                     onClick={togglePlay}
-                    className="bg-white/20 backdrop-blur-sm hover:bg-white/35 text-white p-2.5 rounded-full transition-all duration-300 hover:scale-105 border border-white/15"
+                    className="bg-white/25 backdrop-blur-md hover:bg-white/40 text-white p-3 rounded-full transition-all duration-300 hover:scale-110 border border-white/20 shadow-lg"
                   >
-                    {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+                    {isPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
                   </button>
+                  <div className="bg-gold/90 text-white px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg">
+                    🎬 Featured
+                  </div>
                   <button
                     onClick={toggleMute}
-                    className="bg-white/20 backdrop-blur-sm hover:bg-white/35 text-white p-2.5 rounded-full transition-all duration-300 hover:scale-105 border border-white/15"
+                    className="bg-white/25 backdrop-blur-md hover:bg-white/40 text-white p-3 rounded-full transition-all duration-300 hover:scale-110 border border-white/20 shadow-lg"
                   >
-                    {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+                    {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
                   </button>
                 </div>
-                <div className="absolute top-2 left-2 w-6 h-6 border-l-2 border-t-2 border-gold/50 rounded-tl-md" />
-                <div className="absolute top-2 right-2 w-6 h-6 border-r-2 border-t-2 border-gold/50 rounded-tr-md" />
               </div>
             </div>
           </div>
 
-          {/* Secondary Video Thumbnails */}
-          <div className="flex flex-row md:flex-col gap-4">
-            <div className="relative flex-1 rounded-xl overflow-hidden shadow-lg group cursor-pointer">
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-gold to-[#1f5c40] rounded-xl opacity-40 group-hover:opacity-60 transition-opacity duration-500" />
-              <div className="relative rounded-xl overflow-hidden bg-black aspect-video md:aspect-square">
-                <video autoPlay loop muted playsInline className="w-full h-full object-cover">
-                  <source src="/videos/restaurant-promo.mp4" type="video/mp4" />
-                </video>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                <div className="absolute bottom-2 left-2 right-2">
-                  <p className="text-white text-xs font-medium">🍜 Our Kitchen</p>
-                </div>
+          {/* Video Tile 2 */}
+          <div className="relative rounded-xl overflow-hidden shadow-lg group cursor-pointer hover:scale-[1.02] transition-transform duration-300">
+            <div className="absolute -inset-0.5 bg-gradient-to-br from-gold to-[#3d9970] rounded-xl opacity-50 group-hover:opacity-70 transition-opacity duration-500" />
+            <div className="relative rounded-xl overflow-hidden bg-black aspect-square">
+              <video autoPlay loop muted playsInline className="w-full h-full object-cover">
+                <source src="/videos/restaurant-promo.mp4" type="video/mp4" />
+              </video>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+              <div className="absolute bottom-2 left-2 right-2">
+                <p className="text-white text-xs font-semibold drop-shadow-lg">🍜 Our Kitchen</p>
+              </div>
+              <div className="absolute top-2 right-2 bg-white/20 backdrop-blur-sm px-2 py-1 rounded-full">
+                <Play className="w-3 h-3 text-white" />
               </div>
             </div>
-            <div className="relative flex-1 rounded-xl overflow-hidden shadow-lg group cursor-pointer">
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-[#1f5c40] to-gold rounded-xl opacity-40 group-hover:opacity-60 transition-opacity duration-500" />
-              <div className="relative rounded-xl overflow-hidden bg-black aspect-video md:aspect-square">
-                <video autoPlay loop muted playsInline className="w-full h-full object-cover">
-                  <source src="/videos/restaurant-promo.mp4" type="video/mp4" />
-                </video>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                <div className="absolute bottom-2 left-2 right-2">
-                  <p className="text-white text-xs font-medium">🔥 Fresh & Hot</p>
-                </div>
+          </div>
+
+          {/* Video Tile 3 */}
+          <div className="relative rounded-xl overflow-hidden shadow-lg group cursor-pointer hover:scale-[1.02] transition-transform duration-300">
+            <div className="absolute -inset-0.5 bg-gradient-to-br from-[#3d9970] to-gold rounded-xl opacity-50 group-hover:opacity-70 transition-opacity duration-500" />
+            <div className="relative rounded-xl overflow-hidden bg-black aspect-square">
+              <video autoPlay loop muted playsInline className="w-full h-full object-cover">
+                <source src="/videos/restaurant-promo.mp4" type="video/mp4" />
+              </video>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+              <div className="absolute bottom-2 left-2 right-2">
+                <p className="text-white text-xs font-semibold drop-shadow-lg">🔥 Fresh & Hot</p>
+              </div>
+              <div className="absolute top-2 right-2 bg-white/20 backdrop-blur-sm px-2 py-1 rounded-full">
+                <Play className="w-3 h-3 text-white" />
+              </div>
+            </div>
+          </div>
+
+          {/* Video Tile 4 */}
+          <div className="relative rounded-xl overflow-hidden shadow-lg group cursor-pointer hover:scale-[1.02] transition-transform duration-300">
+            <div className="absolute -inset-0.5 bg-gradient-to-br from-gold via-[#3d9970] to-gold rounded-xl opacity-50 group-hover:opacity-70 transition-opacity duration-500" />
+            <div className="relative rounded-xl overflow-hidden bg-black aspect-square">
+              <video autoPlay loop muted playsInline className="w-full h-full object-cover">
+                <source src="/videos/restaurant-promo.mp4" type="video/mp4" />
+              </video>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+              <div className="absolute bottom-2 left-2 right-2">
+                <p className="text-white text-xs font-semibold drop-shadow-lg">🥘 Signature Dishes</p>
+              </div>
+              <div className="absolute top-2 right-2 bg-white/20 backdrop-blur-sm px-2 py-1 rounded-full">
+                <Play className="w-3 h-3 text-white" />
+              </div>
+            </div>
+          </div>
+
+          {/* Video Tile 5 */}
+          <div className="relative rounded-xl overflow-hidden shadow-lg group cursor-pointer hover:scale-[1.02] transition-transform duration-300">
+            <div className="absolute -inset-0.5 bg-gradient-to-br from-[#3d9970] to-gold rounded-xl opacity-50 group-hover:opacity-70 transition-opacity duration-500" />
+            <div className="relative rounded-xl overflow-hidden bg-black aspect-square">
+              <video autoPlay loop muted playsInline className="w-full h-full object-cover">
+                <source src="/videos/restaurant-promo.mp4" type="video/mp4" />
+              </video>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+              <div className="absolute bottom-2 left-2 right-2">
+                <p className="text-white text-xs font-semibold drop-shadow-lg">👨‍🍳 Chef's Special</p>
+              </div>
+              <div className="absolute top-2 right-2 bg-white/20 backdrop-blur-sm px-2 py-1 rounded-full">
+                <Play className="w-3 h-3 text-white" />
+              </div>
+            </div>
+          </div>
+
+          {/* Video Tile 6 */}
+          <div className="relative rounded-xl overflow-hidden shadow-lg group cursor-pointer hover:scale-[1.02] transition-transform duration-300 hidden md:block">
+            <div className="absolute -inset-0.5 bg-gradient-to-br from-gold to-[#3d9970] rounded-xl opacity-50 group-hover:opacity-70 transition-opacity duration-500" />
+            <div className="relative rounded-xl overflow-hidden bg-black aspect-square">
+              <video autoPlay loop muted playsInline className="w-full h-full object-cover">
+                <source src="/videos/restaurant-promo.mp4" type="video/mp4" />
+              </video>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+              <div className="absolute bottom-2 left-2 right-2">
+                <p className="text-white text-xs font-semibold drop-shadow-lg">🍵 Tea Culture</p>
+              </div>
+              <div className="absolute top-2 right-2 bg-white/20 backdrop-blur-sm px-2 py-1 rounded-full">
+                <Play className="w-3 h-3 text-white" />
+              </div>
+            </div>
+          </div>
+
+          {/* Video Tile 7 - Only on larger screens */}
+          <div className="relative rounded-xl overflow-hidden shadow-lg group cursor-pointer hover:scale-[1.02] transition-transform duration-300 hidden lg:block">
+            <div className="absolute -inset-0.5 bg-gradient-to-br from-[#3d9970] via-gold to-[#3d9970] rounded-xl opacity-50 group-hover:opacity-70 transition-opacity duration-500" />
+            <div className="relative rounded-xl overflow-hidden bg-black aspect-square">
+              <video autoPlay loop muted playsInline className="w-full h-full object-cover">
+                <source src="/videos/restaurant-promo.mp4" type="video/mp4" />
+              </video>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+              <div className="absolute bottom-2 left-2 right-2">
+                <p className="text-white text-xs font-semibold drop-shadow-lg">🎉 Happy Customers</p>
+              </div>
+              <div className="absolute top-2 right-2 bg-white/20 backdrop-blur-sm px-2 py-1 rounded-full">
+                <Play className="w-3 h-3 text-white" />
               </div>
             </div>
           </div>
         </div>
 
         {/* Compact Badge */}
-        <div className="flex justify-center mt-6">
-          <div className="bg-gradient-to-r from-[#1f5c40] to-[#2a7d55] text-white px-4 py-2 rounded-full shadow-md border border-gold/30">
+        <div className="flex justify-center mt-8">
+          <div className="bg-gradient-to-r from-[#3d9970] to-[#4fb587] text-white px-5 py-2.5 rounded-full shadow-lg border border-gold/40">
             <div className="flex items-center gap-2">
-              <span className="text-gold text-base">🍜</span>
-              <p className="font-semibold text-xs">Authentic Malaysian Flavors</p>
+              <span className="text-gold text-lg">🍜</span>
+              <p className="font-semibold text-sm">Authentic Malaysian Flavors</p>
             </div>
           </div>
         </div>
