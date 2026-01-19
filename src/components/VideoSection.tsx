@@ -56,7 +56,7 @@ const VideoSection = () => {
           <div className="md:w-1/4 flex">
             <div className="relative rounded-xl overflow-hidden shadow-lg group cursor-pointer hover:scale-[1.02] transition-transform duration-300 w-full">
               <div className="absolute -inset-0.5 bg-gradient-to-br from-[#3d9970] to-[#2d7555] rounded-xl opacity-50 group-hover:opacity-70 transition-opacity duration-500" />
-              <div className="relative rounded-xl overflow-hidden bg-black aspect-[9/12] h-full">
+              <div className="relative rounded-xl overflow-hidden bg-black aspect-square h-full">
                 <video autoPlay loop muted playsInline className="w-full h-full object-cover">
                   <source src="/videos/restaurant-promo.mp4" type="video/mp4" />
                 </video>
@@ -75,7 +75,7 @@ const VideoSection = () => {
           <div className="md:w-2/4 flex">
             <div className="relative rounded-2xl overflow-hidden shadow-xl group w-full">
               <div className="absolute -inset-1 bg-gradient-to-r from-[#3d9970] via-[#c9a227] to-[#3d9970] rounded-2xl opacity-60 group-hover:opacity-80 transition-opacity duration-500 blur-sm" />
-              <div className="relative rounded-2xl overflow-hidden bg-black aspect-[9/12]">
+              <div className="relative rounded-2xl overflow-hidden bg-black aspect-square">
                 <video
                   ref={videoRef}
                   autoPlay
@@ -111,7 +111,7 @@ const VideoSection = () => {
           <div className="md:w-1/4 flex">
             <div className="relative rounded-xl overflow-hidden shadow-lg group cursor-pointer hover:scale-[1.02] transition-transform duration-300 w-full">
               <div className="absolute -inset-0.5 bg-gradient-to-br from-[#3d9970] to-[#2d7555] rounded-xl opacity-50 group-hover:opacity-70 transition-opacity duration-500" />
-              <div className="relative rounded-xl overflow-hidden bg-black aspect-[9/12] h-full">
+              <div className="relative rounded-xl overflow-hidden bg-black aspect-square h-full">
                 <video autoPlay loop muted playsInline className="w-full h-full object-cover">
                   <source src="/videos/restaurant-promo.mp4" type="video/mp4" />
                 </video>
