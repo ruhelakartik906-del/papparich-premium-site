@@ -127,6 +127,72 @@ const VideoSection = () => {
           </div>
         </motion.div>
 
+        {/* Second Row - 3 More Videos */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.3 }}
+          className="flex flex-col md:flex-row items-stretch gap-4 max-w-5xl mx-auto px-2 mt-4"
+        >
+          {/* Video 4 */}
+          <div className="flex-1">
+            <div className="relative rounded-xl overflow-hidden shadow-lg group cursor-pointer hover:scale-[1.02] transition-transform duration-300 w-full">
+              <div className="absolute -inset-0.5 bg-gradient-to-br from-[#3d9970] to-[#2d7555] rounded-xl opacity-50 group-hover:opacity-70 transition-opacity duration-500" />
+              <div className="relative rounded-xl overflow-hidden bg-black aspect-video">
+                <video autoPlay loop muted playsInline className="w-full h-full object-cover">
+                  <source src="/videos/restaurant-promo.mp4" type="video/mp4" />
+                </video>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <div className="absolute bottom-3 left-3 right-3">
+                  <p className="text-white text-sm font-semibold drop-shadow-lg">🥘 Special Menu</p>
+                </div>
+                <div className="absolute top-3 right-3 bg-white/20 backdrop-blur-sm p-2 rounded-full">
+                  <Play className="w-4 h-4 text-white" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Video 5 */}
+          <div className="flex-1">
+            <div className="relative rounded-xl overflow-hidden shadow-lg group cursor-pointer hover:scale-[1.02] transition-transform duration-300 w-full">
+              <div className="absolute -inset-0.5 bg-gradient-to-br from-[#3d9970] to-[#2d7555] rounded-xl opacity-50 group-hover:opacity-70 transition-opacity duration-500" />
+              <div className="relative rounded-xl overflow-hidden bg-black aspect-video">
+                <video autoPlay loop muted playsInline className="w-full h-full object-cover">
+                  <source src="/videos/restaurant-promo.mp4" type="video/mp4" />
+                </video>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <div className="absolute bottom-3 left-3 right-3">
+                  <p className="text-white text-sm font-semibold drop-shadow-lg">👨‍🍳 Chef's Choice</p>
+                </div>
+                <div className="absolute top-3 right-3 bg-white/20 backdrop-blur-sm p-2 rounded-full">
+                  <Play className="w-4 h-4 text-white" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Video 6 */}
+          <div className="flex-1">
+            <div className="relative rounded-xl overflow-hidden shadow-lg group cursor-pointer hover:scale-[1.02] transition-transform duration-300 w-full">
+              <div className="absolute -inset-0.5 bg-gradient-to-br from-[#3d9970] to-[#2d7555] rounded-xl opacity-50 group-hover:opacity-70 transition-opacity duration-500" />
+              <div className="relative rounded-xl overflow-hidden bg-black aspect-video">
+                <video autoPlay loop muted playsInline className="w-full h-full object-cover">
+                  <source src="/videos/restaurant-promo.mp4" type="video/mp4" />
+                </video>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <div className="absolute bottom-3 left-3 right-3">
+                  <p className="text-white text-sm font-semibold drop-shadow-lg">🍛 Authentic Taste</p>
+                </div>
+                <div className="absolute top-3 right-3 bg-white/20 backdrop-blur-sm p-2 rounded-full">
+                  <Play className="w-4 h-4 text-white" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
         {/* Compact Badge */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
