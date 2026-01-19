@@ -52,11 +52,11 @@ const VideoSection = () => {
           transition={{ duration: 0.7, delay: 0.2 }}
           className="flex flex-col md:flex-row items-stretch gap-4 max-w-5xl mx-auto px-2"
         >
-        {/* Left Video */}
-          <div className="md:w-1/4 flex">
+          {/* Left Video */}
+          <div className="flex-1">
             <div className="relative rounded-xl overflow-hidden shadow-lg group cursor-pointer hover:scale-[1.02] transition-transform duration-300 w-full">
               <div className="absolute -inset-0.5 bg-gradient-to-br from-[#3d9970] to-[#2d7555] rounded-xl opacity-50 group-hover:opacity-70 transition-opacity duration-500" />
-              <div className="relative rounded-xl overflow-hidden bg-black aspect-square h-full">
+              <div className="relative rounded-xl overflow-hidden bg-black aspect-video">
                 <video autoPlay loop muted playsInline className="w-full h-full object-cover">
                   <source src="/videos/restaurant-promo.mp4" type="video/mp4" />
                 </video>
@@ -72,10 +72,10 @@ const VideoSection = () => {
           </div>
 
           {/* Center Main Video */}
-          <div className="md:w-2/4 flex">
-            <div className="relative rounded-2xl overflow-hidden shadow-xl group w-full">
-              <div className="absolute -inset-1 bg-gradient-to-r from-[#3d9970] via-[#c9a227] to-[#3d9970] rounded-2xl opacity-60 group-hover:opacity-80 transition-opacity duration-500 blur-sm" />
-              <div className="relative rounded-2xl overflow-hidden bg-black aspect-square">
+          <div className="flex-1">
+            <div className="relative rounded-xl overflow-hidden shadow-lg group w-full">
+              <div className="absolute -inset-0.5 bg-gradient-to-br from-[#3d9970] to-[#2d7555] rounded-xl opacity-50 group-hover:opacity-70 transition-opacity duration-500" />
+              <div className="relative rounded-xl overflow-hidden bg-black aspect-video">
                 <video
                   ref={videoRef}
                   autoPlay
@@ -108,10 +108,10 @@ const VideoSection = () => {
           </div>
 
           {/* Right Video */}
-          <div className="md:w-1/4 flex">
+          <div className="flex-1">
             <div className="relative rounded-xl overflow-hidden shadow-lg group cursor-pointer hover:scale-[1.02] transition-transform duration-300 w-full">
               <div className="absolute -inset-0.5 bg-gradient-to-br from-[#3d9970] to-[#2d7555] rounded-xl opacity-50 group-hover:opacity-70 transition-opacity duration-500" />
-              <div className="relative rounded-xl overflow-hidden bg-black aspect-square h-full">
+              <div className="relative rounded-xl overflow-hidden bg-black aspect-video">
                 <video autoPlay loop muted playsInline className="w-full h-full object-cover">
                   <source src="/videos/restaurant-promo.mp4" type="video/mp4" />
                 </video>
