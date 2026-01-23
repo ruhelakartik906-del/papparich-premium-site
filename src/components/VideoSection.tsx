@@ -1,29 +1,95 @@
-import { Play, Pause, Volume2, VolumeX } from "lucide-react";
-import { useState, useRef } from "react";
-import { motion } from "framer-motion";
+import { Play, X } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+
+const videos = [
+  { src: "/videos/video-1.mp4", label: "🍜 Our Kitchen" },
+  { src: "/videos/video-2.mp4", label: "🎬 Featured" },
+  { src: "/videos/video-3.mp4", label: "🔥 Fresh & Hot" },
+  { src: "/videos/video-4.mp4", label: "🥘 Special Menu" },
+  { src: "/videos/video-5.mp4", label: "👨‍🍳 Chef's Choice" },
+  { src: "/videos/video-1.mp4", label: "🍛 Authentic Taste" },
+];
 
 const VideoSection = () => {
-  const [isPlaying, setIsPlaying] = useState(true);
-  const [isMuted, setIsMuted] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const [activeVideo, setActiveVideo] = useState<number | null>(null);
+  const modalVideoRef = useRef<HTMLVideoElement>(null);
 
-  const togglePlay = () => {
-    if (videoRef.current) {
-      if (isPlaying) {
-        videoRef.current.pause();
-      } else {
-        videoRef.current.play();
+  const openVideo = (index: number) => {
+    setActiveVideo(index);
+  };
+
+  const closeVideo = () => {
+    setActiveVideo(null);
+  };
+
+  // Handle ESC key to close modal
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && activeVideo !== null) {
+        closeVideo();
       }
-      setIsPlaying(!isPlaying);
-    }
-  };
+    };
 
-  const toggleMute = () => {
-    if (videoRef.current) {
-      videoRef.current.muted = !isMuted;
-      setIsMuted(!isMuted);
+    if (activeVideo !== null) {
+      document.addEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "hidden";
     }
-  };
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "unset";
+    };
+  }, [activeVideo]);
+
+  // Autoplay video when modal opens
+  useEffect(() => {
+    if (activeVideo !== null && modalVideoRef.current) {
+      modalVideoRef.current.play();
+    }
+  }, [activeVideo]);
+
+  const VideoCard = ({ video, index, isCenter = false }: { video: typeof videos[0]; index: number; isCenter?: boolean }) => (
+    <div className="flex-1">
+      <div 
+        onClick={() => openVideo(index)}
+        className="relative rounded-xl overflow-hidden shadow-lg group cursor-pointer hover:scale-[1.02] transition-transform duration-300 w-full"
+      >
+        <div className="absolute -inset-0.5 bg-gradient-to-br from-[#3d9970] to-[#2d7555] rounded-xl opacity-50 group-hover:opacity-70 transition-opacity duration-500" />
+        <div className="relative rounded-xl overflow-hidden bg-black aspect-video">
+          {/* Video as thumbnail (muted, no autoplay) */}
+          <video 
+            muted 
+            playsInline 
+            loop
+            className="w-full h-full object-cover"
+            onMouseEnter={(e) => e.currentTarget.play()}
+            onMouseLeave={(e) => {
+              e.currentTarget.pause();
+              e.currentTarget.currentTime = 0;
+            }}
+          >
+            <source src={video.src} type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+          <div className="absolute bottom-3 left-3 right-3">
+            <p className="text-white text-sm font-semibold drop-shadow-lg">{video.label}</p>
+          </div>
+          {/* Play icon */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="bg-white/25 backdrop-blur-md hover:bg-white/40 text-white p-4 rounded-full transition-all duration-300 group-hover:scale-110 border border-white/20 shadow-lg">
+              <Play className="w-8 h-8" fill="white" />
+            </div>
+          </div>
+          {isCenter && (
+            <div className="absolute top-3 left-1/2 -translate-x-1/2 bg-[#3d9970] text-white px-4 py-2 rounded-full text-xs font-semibold shadow-lg">
+              🎬 Featured
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
 
   return (
     <section className="relative py-12 md:py-16 bg-gradient-to-b from-cream via-white to-cream overflow-hidden">
@@ -44,7 +110,7 @@ const VideoSection = () => {
           </p>
         </motion.div>
 
-        {/* Video Gallery - Left | Center (Main) | Right */}
+        {/* Video Gallery - First Row */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -52,79 +118,9 @@ const VideoSection = () => {
           transition={{ duration: 0.7, delay: 0.2 }}
           className="flex flex-col md:flex-row items-stretch gap-4 max-w-5xl mx-auto px-2"
         >
-          {/* Left Video */}
-          <div className="flex-1">
-            <div className="relative rounded-xl overflow-hidden shadow-lg group cursor-pointer hover:scale-[1.02] transition-transform duration-300 w-full">
-              <div className="absolute -inset-0.5 bg-gradient-to-br from-[#3d9970] to-[#2d7555] rounded-xl opacity-50 group-hover:opacity-70 transition-opacity duration-500" />
-              <div className="relative rounded-xl overflow-hidden bg-black aspect-video">
-                <video autoPlay loop muted playsInline className="w-full h-full object-cover">
-                  <source src="/videos/restaurant-promo.mp4" type="video/mp4" />
-                </video>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <div className="absolute bottom-3 left-3 right-3">
-                  <p className="text-white text-sm font-semibold drop-shadow-lg">🍜 Our Kitchen</p>
-                </div>
-                <div className="absolute top-3 right-3 bg-white/20 backdrop-blur-sm p-2 rounded-full">
-                  <Play className="w-4 h-4 text-white" />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Center Main Video */}
-          <div className="flex-1">
-            <div className="relative rounded-xl overflow-hidden shadow-lg group w-full">
-              <div className="absolute -inset-0.5 bg-gradient-to-br from-[#3d9970] to-[#2d7555] rounded-xl opacity-50 group-hover:opacity-70 transition-opacity duration-500" />
-              <div className="relative rounded-xl overflow-hidden bg-black aspect-video">
-                <video
-                  ref={videoRef}
-                  autoPlay
-                  loop
-                  playsInline
-                  className="w-full h-full object-cover"
-                >
-                  <source src="/videos/restaurant-promo.mp4" type="video/mp4" />
-                </video>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
-                <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
-                  <button
-                    onClick={togglePlay}
-                    className="bg-white/25 backdrop-blur-md hover:bg-white/40 text-white p-3 rounded-full transition-all duration-300 hover:scale-110 border border-white/20 shadow-lg"
-                  >
-                    {isPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
-                  </button>
-                  <div className="bg-[#3d9970] text-white px-4 py-2 rounded-full text-xs font-semibold shadow-lg">
-                    🎬 Featured
-                  </div>
-                  <button
-                    onClick={toggleMute}
-                    className="bg-white/25 backdrop-blur-md hover:bg-white/40 text-white p-3 rounded-full transition-all duration-300 hover:scale-110 border border-white/20 shadow-lg"
-                  >
-                    {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Video */}
-          <div className="flex-1">
-            <div className="relative rounded-xl overflow-hidden shadow-lg group cursor-pointer hover:scale-[1.02] transition-transform duration-300 w-full">
-              <div className="absolute -inset-0.5 bg-gradient-to-br from-[#3d9970] to-[#2d7555] rounded-xl opacity-50 group-hover:opacity-70 transition-opacity duration-500" />
-              <div className="relative rounded-xl overflow-hidden bg-black aspect-video">
-                <video autoPlay loop muted playsInline className="w-full h-full object-cover">
-                  <source src="/videos/restaurant-promo.mp4" type="video/mp4" />
-                </video>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <div className="absolute bottom-3 left-3 right-3">
-                  <p className="text-white text-sm font-semibold drop-shadow-lg">🔥 Fresh & Hot</p>
-                </div>
-                <div className="absolute top-3 right-3 bg-white/20 backdrop-blur-sm p-2 rounded-full">
-                  <Play className="w-4 h-4 text-white" />
-                </div>
-              </div>
-            </div>
-          </div>
+          <VideoCard video={videos[0]} index={0} />
+          <VideoCard video={videos[1]} index={1} isCenter />
+          <VideoCard video={videos[2]} index={2} />
         </motion.div>
 
         {/* Second Row - 3 More Videos */}
@@ -135,62 +131,9 @@ const VideoSection = () => {
           transition={{ duration: 0.7, delay: 0.3 }}
           className="flex flex-col md:flex-row items-stretch gap-4 max-w-5xl mx-auto px-2 mt-4"
         >
-          {/* Video 4 */}
-          <div className="flex-1">
-            <div className="relative rounded-xl overflow-hidden shadow-lg group cursor-pointer hover:scale-[1.02] transition-transform duration-300 w-full">
-              <div className="absolute -inset-0.5 bg-gradient-to-br from-[#3d9970] to-[#2d7555] rounded-xl opacity-50 group-hover:opacity-70 transition-opacity duration-500" />
-              <div className="relative rounded-xl overflow-hidden bg-black aspect-video">
-                <video autoPlay loop muted playsInline className="w-full h-full object-cover">
-                  <source src="/videos/restaurant-promo.mp4" type="video/mp4" />
-                </video>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <div className="absolute bottom-3 left-3 right-3">
-                  <p className="text-white text-sm font-semibold drop-shadow-lg">🥘 Special Menu</p>
-                </div>
-                <div className="absolute top-3 right-3 bg-white/20 backdrop-blur-sm p-2 rounded-full">
-                  <Play className="w-4 h-4 text-white" />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Video 5 */}
-          <div className="flex-1">
-            <div className="relative rounded-xl overflow-hidden shadow-lg group cursor-pointer hover:scale-[1.02] transition-transform duration-300 w-full">
-              <div className="absolute -inset-0.5 bg-gradient-to-br from-[#3d9970] to-[#2d7555] rounded-xl opacity-50 group-hover:opacity-70 transition-opacity duration-500" />
-              <div className="relative rounded-xl overflow-hidden bg-black aspect-video">
-                <video autoPlay loop muted playsInline className="w-full h-full object-cover">
-                  <source src="/videos/restaurant-promo.mp4" type="video/mp4" />
-                </video>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <div className="absolute bottom-3 left-3 right-3">
-                  <p className="text-white text-sm font-semibold drop-shadow-lg">👨‍🍳 Chef's Choice</p>
-                </div>
-                <div className="absolute top-3 right-3 bg-white/20 backdrop-blur-sm p-2 rounded-full">
-                  <Play className="w-4 h-4 text-white" />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Video 6 */}
-          <div className="flex-1">
-            <div className="relative rounded-xl overflow-hidden shadow-lg group cursor-pointer hover:scale-[1.02] transition-transform duration-300 w-full">
-              <div className="absolute -inset-0.5 bg-gradient-to-br from-[#3d9970] to-[#2d7555] rounded-xl opacity-50 group-hover:opacity-70 transition-opacity duration-500" />
-              <div className="relative rounded-xl overflow-hidden bg-black aspect-video">
-                <video autoPlay loop muted playsInline className="w-full h-full object-cover">
-                  <source src="/videos/restaurant-promo.mp4" type="video/mp4" />
-                </video>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <div className="absolute bottom-3 left-3 right-3">
-                  <p className="text-white text-sm font-semibold drop-shadow-lg">🍛 Authentic Taste</p>
-                </div>
-                <div className="absolute top-3 right-3 bg-white/20 backdrop-blur-sm p-2 rounded-full">
-                  <Play className="w-4 h-4 text-white" />
-                </div>
-              </div>
-            </div>
-          </div>
+          <VideoCard video={videos[3]} index={3} />
+          <VideoCard video={videos[4]} index={4} />
+          <VideoCard video={videos[5]} index={5} />
         </motion.div>
 
         {/* Compact Badge */}
@@ -209,6 +152,48 @@ const VideoSection = () => {
           </div>
         </motion.div>
       </div>
+
+      {/* Fullscreen Video Modal */}
+      <AnimatePresence>
+        {activeVideo !== null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/90"
+            onClick={closeVideo}
+          >
+            {/* Close Button */}
+            <button
+              onClick={closeVideo}
+              className="absolute top-4 right-4 md:top-8 md:right-8 z-50 bg-white/20 hover:bg-white/40 text-white p-3 rounded-full transition-all duration-300 hover:scale-110 border border-white/20"
+            >
+              <X className="w-6 h-6" />
+            </button>
+
+            {/* Video Container */}
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="w-full max-w-5xl mx-4"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <video
+                ref={modalVideoRef}
+                controls
+                autoPlay
+                playsInline
+                className="w-full rounded-xl shadow-2xl"
+              >
+                <source src={videos[activeVideo].src} type="video/mp4" />
+              </video>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };
