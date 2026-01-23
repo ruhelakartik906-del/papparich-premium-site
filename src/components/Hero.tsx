@@ -1,31 +1,6 @@
-import { useState, useEffect, useCallback } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import heroBanner1 from "@/assets/hero-banner-1.png";
-import heroBanner2 from "@/assets/hero-banner-2.jpg";
-
-const bannerImages = [heroBanner1, heroBanner2];
+import foodSpread from "@/assets/food-spread.jpg";
 
 const Hero = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
-
-  const nextSlide = useCallback(() => {
-    setCurrentSlide((prev) => (prev + 1) % bannerImages.length);
-  }, []);
-
-  const prevSlide = useCallback(() => {
-    setCurrentSlide((prev) => (prev - 1 + bannerImages.length) % bannerImages.length);
-  }, []);
-
-  const goToSlide = (index: number) => {
-    setCurrentSlide(index);
-  };
-
-  // Auto-slide every 4 seconds
-  useEffect(() => {
-    const interval = setInterval(nextSlide, 4000);
-    return () => clearInterval(interval);
-  }, [nextSlide]);
-
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
     if (element) {
@@ -35,60 +10,8 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-screen bg-gradient-hero flex items-center overflow-hidden">
-      {/* Background Image Slider */}
-      <div className="absolute inset-0">
-        {bannerImages.map((image, index) => (
-          <div
-            key={index}
-            className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
-              index === currentSlide ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            <img
-              src={image}
-              alt={`Banner ${index + 1}`}
-              className="w-full h-full object-cover"
-            />
-            {/* Dark overlay for text readability */}
-            <div className="absolute inset-0 bg-olive-dark/60" />
-          </div>
-        ))}
-      </div>
-
-      {/* Slider Navigation Arrows */}
-      <button
-        onClick={prevSlide}
-        className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 bg-cream/20 hover:bg-cream/40 backdrop-blur-sm text-cream p-2 md:p-3 rounded-full transition-all duration-300"
-        aria-label="Previous slide"
-      >
-        <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
-      </button>
-      <button
-        onClick={nextSlide}
-        className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 bg-cream/20 hover:bg-cream/40 backdrop-blur-sm text-cream p-2 md:p-3 rounded-full transition-all duration-300"
-        aria-label="Next slide"
-      >
-        <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
-      </button>
-
-      {/* Slider Dots */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2">
-        {bannerImages.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => goToSlide(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
-              index === currentSlide
-                ? "bg-gold w-8"
-                : "bg-cream/50 hover:bg-cream/80"
-            }`}
-            aria-label={`Go to slide ${index + 1}`}
-          />
-        ))}
-      </div>
-
       {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5 z-10">
+      <div className="absolute inset-0 opacity-5">
         <div
           className="absolute inset-0"
           style={{
@@ -171,13 +94,32 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Empty space for slider visibility on right side */}
-          <div className="hidden lg:block" />
+          {/* Hero Image */}
+          <div
+            className="relative opacity-0 animate-fade-in-right"
+            style={{ animationDelay: "0.3s" }}
+          >
+            <div className="relative rounded-2xl overflow-hidden shadow-elevated">
+              <img
+                src={foodSpread}
+                alt="PappaRich Malaysian Food Spread - Curry Laksa, Nasi Lemak, Roti Canai and more"
+                className="w-full h-auto object-cover"
+              />
+              {/* Overlay gradient */}
+              <div className="absolute inset-0 bg-gradient-to-t from-olive-dark/40 to-transparent" />
+            </div>
+
+            {/* Floating Badge */}
+            <div className="absolute -bottom-6 -left-6 bg-gold text-olive-dark px-6 py-4 rounded-xl shadow-gold animate-float">
+              <p className="font-heading font-bold text-xl">★ 4.8</p>
+              <p className="text-sm font-medium opacity-80">2,500+ Reviews</p>
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-16 left-1/2 -translate-x-1/2 opacity-0 animate-fade-in z-10" style={{ animationDelay: "0.7s" }}>
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 opacity-0 animate-fade-in" style={{ animationDelay: "0.7s" }}>
         <button
           onClick={() => scrollToSection("#about")}
           className="text-cream/60 hover:text-cream transition-colors flex flex-col items-center gap-2"
