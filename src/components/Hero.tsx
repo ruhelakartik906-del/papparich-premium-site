@@ -1,6 +1,18 @@
-import foodSpread from "@/assets/food-spread.jpg";
+import { useState, useEffect } from "react";
+import heroBanner1 from "@/assets/hero-banner-1.jpg";
+import heroBanner2 from "@/assets/hero-banner-2.png";
 
 const Hero = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const banners = [heroBanner1, heroBanner2];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % banners.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [banners.length]);
+
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
     if (element) {
@@ -10,14 +22,39 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-screen bg-gradient-hero flex items-center overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          }}
-        />
+      {/* Banner Slider Background */}
+      <div className="absolute inset-0">
+        {banners.map((banner, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 transition-opacity duration-1000 ${
+              index === currentSlide ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <img
+              src={banner}
+              alt={`PappaRich Banner ${index + 1}`}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-olive-dark/40" />
+          </div>
+        ))}
+      </div>
+
+      {/* Slider Indicators */}
+      <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-20 flex gap-3">
+        {banners.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentSlide(index)}
+            className={`w-3 h-3 rounded-full transition-all duration-300 ${
+              index === currentSlide
+                ? "bg-gold w-8"
+                : "bg-cream/50 hover:bg-cream/80"
+            }`}
+            aria-label={`Go to slide ${index + 1}`}
+          />
+        ))}
       </div>
 
       <div className="container-custom relative z-10 py-32 md:py-40">
@@ -94,32 +131,13 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Hero Image */}
-          <div
-            className="relative opacity-0 animate-fade-in-right"
-            style={{ animationDelay: "0.3s" }}
-          >
-            <div className="relative rounded-2xl overflow-hidden shadow-elevated">
-              <img
-                src={foodSpread}
-                alt="PappaRich Malaysian Food Spread - Curry Laksa, Nasi Lemak, Roti Canai and more"
-                className="w-full h-auto object-cover"
-              />
-              {/* Overlay gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-olive-dark/40 to-transparent" />
-            </div>
-
-            {/* Floating Badge */}
-            <div className="absolute -bottom-6 -left-6 bg-gold text-olive-dark px-6 py-4 rounded-xl shadow-gold animate-float">
-              <p className="font-heading font-bold text-xl">★ 4.8</p>
-              <p className="text-sm font-medium opacity-80">2,500+ Reviews</p>
-            </div>
-          </div>
+          {/* Empty space for right side - banner is now full width background */}
+          <div className="hidden lg:block" />
         </div>
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 opacity-0 animate-fade-in" style={{ animationDelay: "0.7s" }}>
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 opacity-0 animate-fade-in z-20" style={{ animationDelay: "0.7s" }}>
         <button
           onClick={() => scrollToSection("#about")}
           className="text-cream/60 hover:text-cream transition-colors flex flex-col items-center gap-2"
