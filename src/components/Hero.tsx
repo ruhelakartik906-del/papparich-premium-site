@@ -1,6 +1,19 @@
-import foodSpread from "@/assets/food-spread.jpg";
+import { useState, useEffect } from "react";
+import banner1 from "@/assets/banner-1.jpg";
+import banner2 from "@/assets/banner-2.png";
+
+const bannerImages = [banner1, banner2];
 
 const Hero = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % bannerImages.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
+
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
     if (element) {
@@ -10,8 +23,25 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-screen bg-gradient-hero flex items-center overflow-hidden">
+      {/* Banner Slider Background */}
+      {bannerImages.map((image, index) => (
+        <div
+          key={index}
+          className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+            index === currentSlide ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          <img
+            src={image}
+            alt={`Banner ${index + 1}`}
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-olive-dark/60" />
+        </div>
+      ))}
+
       {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
+      <div className="absolute inset-0 opacity-5 z-10">
         <div
           className="absolute inset-0"
           style={{
@@ -20,7 +50,7 @@ const Hero = () => {
         />
       </div>
 
-      <div className="container-custom relative z-10 py-32 md:py-40">
+      <div className="container-custom relative z-20 py-32 md:py-40">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Content */}
           <div className="text-center lg:text-left">
@@ -94,23 +124,12 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Hero Image */}
+          {/* Floating Badge */}
           <div
-            className="relative opacity-0 animate-fade-in-right"
+            className="relative opacity-0 animate-fade-in-right hidden lg:flex justify-center items-center"
             style={{ animationDelay: "0.3s" }}
           >
-            <div className="relative rounded-2xl overflow-hidden shadow-elevated">
-              <img
-                src={foodSpread}
-                alt="PappaRich Malaysian Food Spread - Curry Laksa, Nasi Lemak, Roti Canai and more"
-                className="w-full h-auto object-cover"
-              />
-              {/* Overlay gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-olive-dark/40 to-transparent" />
-            </div>
-
-            {/* Floating Badge */}
-            <div className="absolute -bottom-6 -left-6 bg-gold text-olive-dark px-6 py-4 rounded-xl shadow-gold animate-float">
+            <div className="bg-gold text-olive-dark px-6 py-4 rounded-xl shadow-gold animate-float">
               <p className="font-heading font-bold text-xl">★ 4.8</p>
               <p className="text-sm font-medium opacity-80">2,500+ Reviews</p>
             </div>
@@ -118,8 +137,24 @@ const Hero = () => {
         </div>
       </div>
 
+      {/* Slide Indicators */}
+      <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+        {bannerImages.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentSlide(index)}
+            className={`w-3 h-3 rounded-full transition-all duration-300 ${
+              index === currentSlide
+                ? "bg-gold w-8"
+                : "bg-cream/50 hover:bg-cream/70"
+            }`}
+            aria-label={`Go to slide ${index + 1}`}
+          />
+        ))}
+      </div>
+
       {/* Scroll Indicator */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 opacity-0 animate-fade-in" style={{ animationDelay: "0.7s" }}>
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 opacity-0 animate-fade-in z-20" style={{ animationDelay: "0.7s" }}>
         <button
           onClick={() => scrollToSection("#about")}
           className="text-cream/60 hover:text-cream transition-colors flex flex-col items-center gap-2"
