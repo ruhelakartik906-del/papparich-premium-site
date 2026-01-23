@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import nasiKunyit from "@/assets/nasi-kunyit.jpg";
-import aisKacang from "@/assets/ais-kacang.jpg";
-import nasiGorengAyam from "@/assets/nasi-goreng-ayam.jpg";
-import meeGoreng from "@/assets/mee-goreng.jpg";
-import deliveryUbereats from "@/assets/delivery-ubereats.jpg";
+import meeSiamRendang from "@/assets/mee-siam-rendang.jpg";
+import mangoLonganDrink from "@/assets/mango-longan-drink.jpg";
+import aisKacangNew from "@/assets/ais-kacang-new.jpg";
+import meeGorengMamak from "@/assets/mee-goreng-mamak.jpg";
+import loMaiGai from "@/assets/lo-mai-gai.jpg";
 import foodSpread from "@/assets/food-spread.jpg";
 
 interface DishCard {
@@ -15,44 +15,44 @@ interface DishCard {
 
 const dishes: DishCard[] = [
   {
-    name: "Nasi Kunyit",
+    name: "Mee Siam with Rendang",
     description:
-      "Fragrant turmeric yellow rice with sambal, anchovies, vegetables, and traditional Malaysian sides",
-    image: nasiKunyit,
+      "Delicate rice vermicelli tossed in tangy-sweet gravy with spicy beef rendang. Served with fresh cucumber, bean sprouts, and sambal on the side.",
+    image: meeSiamRendang,
     category: "Signature",
   },
   {
-    name: "Nasi Goreng Ayam",
+    name: "Mango Longan Cooler",
     description:
-      "Malaysian fried rice with crispy fried chicken, sunny-side egg, papadum, and sambal",
-    image: nasiGorengAyam,
-    category: "Rice",
-  },
-  {
-    name: "Mee Goreng Mamak",
-    description:
-      "Wok-fried yellow noodles with prawns, chilli, onions, and traditional spices",
-    image: meeGoreng,
-    category: "Noodles",
+      "Refreshing iced mango blend topped with sweet longan pearls. A tropical escape in every sip, perfect for hot days.",
+    image: mangoLonganDrink,
+    category: "Drinks",
   },
   {
     name: "Ais Kacang (ABC)",
     description:
-      "Shaved ice dessert with red beans, grass jelly, sweet corn, peanuts, and rose syrup",
-    image: aisKacang,
+      "Towering shaved ice drenched in rose syrup with red beans, corn, grass jelly, and peanuts. Malaysia's beloved rainbow dessert.",
+    image: aisKacangNew,
     category: "Desserts",
   },
   {
-    name: "Nasi Lemak Set",
+    name: "Mee Goreng Mamak",
     description:
-      "Classic coconut rice with rendang chicken, egg, anchovies, peanuts, and sambal - delivered fresh",
-    image: deliveryUbereats,
-    category: "Delivery",
+      "Wok-fried yellow noodles with crispy tofu, bean sprouts, and a zesty lime wedge. A street-style classic with bold, smoky flavors.",
+    image: meeGorengMamak,
+    category: "Noodles",
+  },
+  {
+    name: "Lo Mai Gai",
+    description:
+      "Steamed glutinous rice with tender chicken and shiitake mushroom. A dim sum favorite wrapped in comforting, savory goodness.",
+    image: loMaiGai,
+    category: "Dim Sum",
   },
   {
     name: "PappaRich Feast",
     description:
-      "A spread of our best dishes - Curry Laksa, Nasi Lemak, Roti Canai, Hainanese Chicken, and more",
+      "A spread of our best dishes - Curry Laksa, Nasi Lemak, Roti Canai. Perfect for sharing with family and friends.",
     image: foodSpread,
     category: "Sharing",
   },
