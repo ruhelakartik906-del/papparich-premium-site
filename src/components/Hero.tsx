@@ -1,6 +1,19 @@
-import foodSpread from "@/assets/food-spread.jpg";
+import { useState, useEffect } from "react";
+import banner1 from "@/assets/banner-1.png";
+import banner2 from "@/assets/banner-2.jpg";
+
+const bannerImages = [banner1, banner2];
 
 const Hero = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % bannerImages.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
+
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
     if (element) {
@@ -8,17 +21,67 @@ const Hero = () => {
     }
   };
 
+  const goToSlide = (index: number) => {
+    setCurrentSlide(index);
+  };
+
   return (
     <section className="relative min-h-screen bg-gradient-hero flex items-center overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          }}
-        />
+      {/* Banner Slider */}
+      <div className="absolute inset-0">
+        {bannerImages.map((image, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+              index === currentSlide ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <img
+              src={image}
+              alt={`PappaRich Banner ${index + 1}`}
+              className="w-full h-full object-cover"
+            />
+            {/* Overlay gradient for text readability */}
+            <div className="absolute inset-0 bg-gradient-to-r from-olive-dark/70 via-olive-dark/40 to-transparent" />
+          </div>
+        ))}
       </div>
+
+      {/* Navigation Dots */}
+      <div className="absolute bottom-20 left-1/2 -translate-x-1/2 z-20 flex gap-3">
+        {bannerImages.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => goToSlide(index)}
+            className={`w-3 h-3 rounded-full transition-all duration-300 ${
+              index === currentSlide
+                ? "bg-gold w-8"
+                : "bg-cream/50 hover:bg-cream/80"
+            }`}
+            aria-label={`Go to slide ${index + 1}`}
+          />
+        ))}
+      </div>
+
+      {/* Navigation Arrows */}
+      <button
+        onClick={() => setCurrentSlide((prev) => (prev - 1 + bannerImages.length) % bannerImages.length)}
+        className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-cream/20 hover:bg-cream/40 backdrop-blur-sm flex items-center justify-center transition-all duration-300"
+        aria-label="Previous slide"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-cream" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+      <button
+        onClick={() => setCurrentSlide((prev) => (prev + 1) % bannerImages.length)}
+        className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-cream/20 hover:bg-cream/40 backdrop-blur-sm flex items-center justify-center transition-all duration-300"
+        aria-label="Next slide"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-cream" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
 
       <div className="container-custom relative z-10 py-32 md:py-40">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -94,32 +157,13 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Hero Image */}
-          <div
-            className="relative opacity-0 animate-fade-in-right"
-            style={{ animationDelay: "0.3s" }}
-          >
-            <div className="relative rounded-2xl overflow-hidden shadow-elevated">
-              <img
-                src={foodSpread}
-                alt="PappaRich Malaysian Food Spread - Curry Laksa, Nasi Lemak, Roti Canai and more"
-                className="w-full h-auto object-cover"
-              />
-              {/* Overlay gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-olive-dark/40 to-transparent" />
-            </div>
-
-            {/* Floating Badge */}
-            <div className="absolute -bottom-6 -left-6 bg-gold text-olive-dark px-6 py-4 rounded-xl shadow-gold animate-float">
-              <p className="font-heading font-bold text-xl">★ 4.8</p>
-              <p className="text-sm font-medium opacity-80">2,500+ Reviews</p>
-            </div>
-          </div>
+          {/* Empty space where the old image was - keeping layout intact */}
+          <div className="hidden lg:block" />
         </div>
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 opacity-0 animate-fade-in" style={{ animationDelay: "0.7s" }}>
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 opacity-0 animate-fade-in z-10" style={{ animationDelay: "0.7s" }}>
         <button
           onClick={() => scrollToSection("#about")}
           className="text-cream/60 hover:text-cream transition-colors flex flex-col items-center gap-2"
