@@ -8,7 +8,7 @@ const videos = [
   { src: "/videos/video-3.mp4", label: "🔥 Fresh & Hot" },
   { src: "/videos/video-4.mp4", label: "🥘 Special Menu" },
   { src: "/videos/video-5.mp4", label: "👨‍🍳 Chef's Choice" },
-  { src: "/videos/video-1.mp4", label: "🍛 Authentic Taste" },
+  { src: "/videos/video-6.mp4", label: "🍛 Authentic Taste" },
 ];
 
 const VideoSection = () => {
