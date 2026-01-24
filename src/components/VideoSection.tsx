@@ -71,8 +71,6 @@ const VideoSection = () => {
           >
             <source src={video.src} type="video/mp4" />
           </video>
-          {/* Dark overlay */}
-          <div className="absolute inset-0 bg-black/45" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
           <div className="absolute bottom-3 left-3 right-3">
             <p className="text-white text-sm font-semibold drop-shadow-lg">{video.label}</p>
