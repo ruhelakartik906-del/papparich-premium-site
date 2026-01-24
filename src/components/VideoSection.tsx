@@ -62,7 +62,13 @@ const VideoSection = () => {
             muted 
             playsInline 
             loop
+            preload="metadata"
+            poster=""
             className="w-full h-full object-cover"
+            onLoadedData={(e) => {
+              // Capture first frame as poster by seeking to 0
+              e.currentTarget.currentTime = 0.1;
+            }}
             onMouseEnter={(e) => e.currentTarget.play()}
             onMouseLeave={(e) => {
               e.currentTarget.pause();
