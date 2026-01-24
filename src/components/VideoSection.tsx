@@ -49,53 +49,94 @@ const VideoSection = () => {
     }
   }, [activeVideo]);
 
-  const VideoCard = ({ video, index, isCenter = false }: { video: typeof videos[0]; index: number; isCenter?: boolean }) => (
-    <div className="flex-1">
-      <div 
-        onClick={() => openVideo(index)}
-        className="relative rounded-xl overflow-hidden shadow-lg group cursor-pointer hover:scale-[1.02] transition-transform duration-300 w-full"
-      >
-        <div className="absolute -inset-0.5 bg-gradient-to-br from-[#3d9970] to-[#2d7555] rounded-xl opacity-50 group-hover:opacity-70 transition-opacity duration-500" />
-        <div className="relative rounded-xl overflow-hidden bg-black aspect-video">
-          {/* Video as thumbnail (muted, no autoplay) */}
-          <video 
-            muted 
-            playsInline 
-            loop
-            preload="metadata"
-            poster=""
-            className="w-full h-full object-cover"
-            onLoadedData={(e) => {
-              // Capture first frame as poster by seeking to 0
-              e.currentTarget.currentTime = 0.1;
-            }}
-            onMouseEnter={(e) => e.currentTarget.play()}
-            onMouseLeave={(e) => {
-              e.currentTarget.pause();
-              e.currentTarget.currentTime = 0;
-            }}
-          >
-            <source src={video.src} type="video/mp4" />
-          </video>
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-          <div className="absolute bottom-3 left-3 right-3">
-            <p className="text-white text-sm font-semibold drop-shadow-lg">{video.label}</p>
-          </div>
-          {/* Play icon */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="bg-white/25 backdrop-blur-md hover:bg-white/40 text-white p-4 rounded-full transition-all duration-300 group-hover:scale-110 border border-white/20 shadow-lg">
-              <Play className="w-8 h-8" fill="white" />
+  const VideoCard = ({ video, index, isCenter = false }: { video: typeof videos[0]; index: number; isCenter?: boolean }) => {
+    const videoRef = useRef<HTMLVideoElement>(null);
+    const [posterUrl, setPosterUrl] = useState<string>("");
+
+    useEffect(() => {
+      const videoEl = videoRef.current;
+      if (!videoEl) return;
+
+      const generatePoster = () => {
+        // Seek to 1.5 seconds to avoid black intro frames
+        videoEl.currentTime = 1.5;
+      };
+
+      const capturePoster = () => {
+        const canvas = document.createElement("canvas");
+        canvas.width = videoEl.videoWidth;
+        canvas.height = videoEl.videoHeight;
+        const ctx = canvas.getContext("2d");
+        if (ctx) {
+          ctx.drawImage(videoEl, 0, 0, canvas.width, canvas.height);
+          const dataUrl = canvas.toDataURL("image/jpeg", 0.8);
+          setPosterUrl(dataUrl);
+        }
+        // Reset to beginning after capturing
+        videoEl.currentTime = 0;
+      };
+
+      videoEl.addEventListener("loadedmetadata", generatePoster);
+      videoEl.addEventListener("seeked", capturePoster);
+
+      return () => {
+        videoEl.removeEventListener("loadedmetadata", generatePoster);
+        videoEl.removeEventListener("seeked", capturePoster);
+      };
+    }, []);
+
+    return (
+      <div className="flex-1">
+        <div 
+          onClick={() => openVideo(index)}
+          className="relative rounded-xl overflow-hidden shadow-lg group cursor-pointer hover:scale-[1.02] transition-transform duration-300 w-full"
+        >
+          <div className="absolute -inset-0.5 bg-gradient-to-br from-[#3d9970] to-[#2d7555] rounded-xl opacity-50 group-hover:opacity-70 transition-opacity duration-500" />
+          <div className="relative rounded-xl overflow-hidden bg-black aspect-video">
+            {/* Poster image overlay */}
+            {posterUrl && (
+              <img 
+                src={posterUrl} 
+                alt={video.label}
+                className="absolute inset-0 w-full h-full object-cover z-10 group-hover:opacity-0 transition-opacity duration-300"
+              />
+            )}
+            {/* Video as thumbnail (muted, no autoplay) */}
+            <video 
+              ref={videoRef}
+              muted 
+              playsInline 
+              loop
+              preload="metadata"
+              className="w-full h-full object-cover"
+              onMouseEnter={(e) => e.currentTarget.play()}
+              onMouseLeave={(e) => {
+                e.currentTarget.pause();
+                e.currentTarget.currentTime = 0;
+              }}
+            >
+              <source src={video.src} type="video/mp4" />
+            </video>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-20 pointer-events-none" />
+            <div className="absolute bottom-3 left-3 right-3 z-20">
+              <p className="text-white text-sm font-semibold drop-shadow-lg">{video.label}</p>
             </div>
-          </div>
-          {isCenter && (
-            <div className="absolute top-3 left-1/2 -translate-x-1/2 bg-[#3d9970] text-white px-4 py-2 rounded-full text-xs font-semibold shadow-lg">
-              🎬 Featured
+            {/* Play icon */}
+            <div className="absolute inset-0 flex items-center justify-center z-20">
+              <div className="bg-white/25 backdrop-blur-md hover:bg-white/40 text-white p-4 rounded-full transition-all duration-300 group-hover:scale-110 border border-white/20 shadow-lg">
+                <Play className="w-8 h-8" fill="white" />
+              </div>
             </div>
-          )}
+            {isCenter && (
+              <div className="absolute top-3 left-1/2 -translate-x-1/2 bg-[#3d9970] text-white px-4 py-2 rounded-full text-xs font-semibold shadow-lg z-20">
+                🎬 Featured
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <section className="relative py-12 md:py-16 bg-gradient-to-b from-cream via-white to-cream overflow-hidden">
